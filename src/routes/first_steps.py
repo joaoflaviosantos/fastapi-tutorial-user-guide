@@ -1,4 +1,6 @@
-'''Exemples on: https://fastapi.tiangolo.com/tutorial/first-steps/'''
+'''
+Exemples on: https://fastapi.tiangolo.com/tutorial/first-steps/
+'''
 from fastapi import APIRouter
 
 router = APIRouter()

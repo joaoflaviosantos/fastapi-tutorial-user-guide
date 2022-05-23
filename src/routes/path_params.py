@@ -1,6 +1,10 @@
-'''Exemples on: https://fastapi.tiangolo.com/tutorial/path-params/''' # pylint: disable=invalid-name
+'''
+Exemples on: https://fastapi.tiangolo.com/tutorial/path-params/
+'''
 from enum import Enum
 from fastapi import APIRouter
+
+# pylint: disable=invalid-name
 
 class ModelName(str, Enum):
     '''

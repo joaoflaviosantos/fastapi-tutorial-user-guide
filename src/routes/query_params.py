@@ -1,4 +1,6 @@
-'''Exemples on: https://fastapi.tiangolo.com/tutorial/query-params/'''
+'''
+Exemples on: https://fastapi.tiangolo.com/tutorial/query-params/
+'''
 from fastapi import APIRouter
 
 # pylint: disable=invalid-name

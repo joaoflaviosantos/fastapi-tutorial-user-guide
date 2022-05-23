@@ -1,4 +1,6 @@
-'''Exemples on: https://fastapi.tiangolo.com/tutorial/body/'''
+'''
+Exemples on: https://fastapi.tiangolo.com/tutorial/body/
+'''
 from datetime import datetime
 from fastapi import APIRouter
 from pydantic import BaseModel
