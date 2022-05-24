@@ -55,8 +55,8 @@ async def create_item(item: Item):
     #print(item_dict)
     return item_dict
 
-@router.put("/items-request-path-body-params/{item_id}")
-async def create_item_request_path_body_params(item_id: int, item: Item):
+@router.put("/items-request-body-path-without-query-params/{item_id}")
+async def create_item_request_body_path_without_query_params(item_id: int, item: Item):
     '''
     <h3>Basic explanation:</h3>\n
     You can declare path parameters and request body at the same time.\n
@@ -85,8 +85,8 @@ async def create_item_request_path_body_params(item_id: int, item: Item):
     #print(item_dict)
     return {"item_id": item_id, **item_dict}
 
-@router.put("/items-request-body-path-query-params/{item_id}")
-async def create_item_request_body_path_query_params(item_id: int, item: Item, q: str | None = None):
+@router.put("/items-request-body-path-with-query-params/{item_id}")
+async def create_item_request_body_path_with_query_params(item_id: int, item: Item, q: str | None = None):
     '''
     <h3>Basic explanation:</h3>\n
     You can also declare body, path and query parameters, all at the same time.
