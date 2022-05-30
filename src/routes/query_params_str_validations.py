@@ -2,8 +2,10 @@
 https://fastapi.tiangolo.com/tutorial/query-params-str-validations/
 '''
 from fastapi import APIRouter,Query
+from pydantic import Required
 
 # pylint: disable=invalid-name
+# pylint: disable=line-too-long
 
 router = APIRouter()
 
@@ -107,6 +109,110 @@ async def read_items_with_required_query_value(q: str = Query(min_length=3)):
     <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     {"items": [{"item_id": "Foo"},{"item_id": "Bar"}],"q": "Test"}
+    '''
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+@router.get("/items-with-query-params-required-value-with-ellipsis/")
+async def read_items_with_required_query_value_with_ellipsis(q: str = Query(default=..., min_length=3)):
+    '''
+    <h3>Basic explanation:</h3>\n
+    There's an alternative way to explicitly declare that a value is required.
+     You can set the default parameter to the literal value '...'\n
+    If 'q' query is null or "", FastAPI will return an query params error.\n
+    Eg.: {"detail":[{"loc":["query","q"],"msg":"field required","type":"value_error.missing"}]}\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"items": [{"item_id": "Foo"},{"item_id": "Bar"}],"q": "Test"}
+    '''
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+@router.get("/items-with-query-params-required-value-with-none/")
+async def read_items_with_required_query_value_with_none(q: str | None = Query(default=..., min_length=3)):
+    '''
+    <h3>Basic explanation:</h3>\n
+    You can declare that a parameter can accept None, but that it's still required.
+     This would force clients to send a value, even if the value is None.\n
+    To do that, you can declare that None is a valid type but still use default=... .\n
+    If 'q' query is null or "", FastAPI will return an query params error:\n
+    Eg.: {"detail":[{"loc":["query","q"],"msg":"field required","type":"value_error.missing"}]}\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"items": [{"item_id": "Foo"},{"item_id": "Bar"}],"q": "Test"}
+    '''
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+@router.get("/items-with-query-params-required-value-with-pydantic/")
+async def read_items_with_required_query_value_with_pydantic(q: str = Query(default=Required, min_length=3)):
+    '''
+    <h3>Basic explanation:</h3>\n
+    If you feel uncomfortable using ..., you can also import and use Required from Pydantic.
+    If 'q' query is null or "", FastAPI will return an query params error.\n
+    Eg.: {"detail":[{"loc":["query","q"],"msg":"field required","type":"value_error.missing"}]}\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/" target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"items": [{"item_id": "Foo"},{"item_id": "Bar"}],"q": "Test"}
+    '''
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+@router.get("/items-query-params-with-multiple-values/")
+async def read_items_query_value_with_multiple_values(q: list[str] | None = Query(default=None)):
+    '''
+    <h3>Basic explanation:</h3>\n
+    When you define a query parameter explicitly with Query you can also declare it to receive a list of values,
+     or said in other way, to receive multiple values.\n
+    Then, with a URL like:\n
+    http://localhost:8000/items/?q=foo&q=bar\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#query-parameter-list-multiple-values-with-defaults"
+     target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"items": ["q": ["foo", "bar"]}
+    '''
+    query_items = {"q": q}
+    return query_items
+
+@router.get("/items-query-params-with-multiple-default-values/")
+async def read_items_query_value_with_multiple_default_values(q: list[str] = Query(default=["foo", "bar"])):
+    '''
+    <h3>Basic explanation:</h3>\n
+    And you can also define a default list of values if none are provided.\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#query-parameter-list-multiple-values-with-defaults"
+     target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"items": ["q": ["foo", "bar"]}
+    '''
+    query_items = {"q": q}
+    return query_items
+
+
+@router.get("/items-with-query-params-required-value-with-information-metadata-params/")
+async def read_items_with_required_query_value_with_information_metadata_params(
+    q: str | None = Query(
+        default=None,
+        title="Query string",
+        description="Query string for the items to search in the database that have a good match",
+        min_length=3,
+        )):
+    '''
+    <h3>Basic explanation:</h3>\n
+    You can add more information about the parameter.\n
+    That information will be included in the generated OpenAPI and used by the documentation user
+     interfaces and external tools.\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#declare-more-metadata"
+     target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}],"q": "Test"}
     '''
     results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
     if q:
