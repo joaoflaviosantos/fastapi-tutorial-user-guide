@@ -6,6 +6,7 @@ from fastapi import APIRouter
 from pydantic import BaseModel
 
 # pylint: disable=invalid-name
+# pylint: disable=line-too-long
 
 router = APIRouter()
 
@@ -34,7 +35,7 @@ async def create_item(item: Item):
      it is not required. Otherwise, it is required. Use None to make it just optional.\n
     ...as description and tax are optional (with a default value of None), this JSON "object" would also be valid:
      { "name": "Foo", "price": 45.2 }\n
-    <a href="https://fastapi.tiangolo.com/tutorial/body/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/body/#use-the-model" target="_blank">More details..</a>
     <h3>Request body exemple:</h3>\n
     { "name": "Foo", "description": "An optional description", "price": 45.2, "tax": null }
     <h3>Response exemple:</h3>\n
@@ -55,15 +56,15 @@ async def create_item(item: Item):
     #print(item_dict)
     return item_dict
 
-@router.put("/items-request-body-path-without-query-params/{item_id}")
-async def create_item_request_body_path_without_query_params(item_id: int, item: Item):
+@router.put("/items-request-body-path-with-query-params/{item_id}")
+async def create_item_request_body_path_with_query_params(item_id: int, item: Item):
     '''
     <h3>Basic explanation:</h3>\n
     You can declare path parameters and request body at the same time.\n
     FastAPI will recognize that the function parameters that match path parameters should be
      taken from the path, and that function parameters that are declared to be Pydantic models should be
      taken from the request body.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/body/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/body/#request-body-path-parameters" target="_blank">More details..</a>
     <h3>Request body exemple:</h3>\n
     { "name": "Foo", "description": "An optional description", "price": 45.2, "tax": 3.9 }
     <h3>Response exemple:</h3>\n
@@ -85,13 +86,13 @@ async def create_item_request_body_path_without_query_params(item_id: int, item:
     #print(item_dict)
     return {"item_id": item_id, **item_dict}
 
-@router.put("/items-request-body-path-with-query-params/{item_id}")
-async def create_item_request_body_path_with_query_params(item_id: int, item: Item, q: str | None = None):
+@router.put("/items-request-body-path-with-multiple-query-params/{item_id}")
+async def create_item_request_body_path_with_multiple_query__params(item_id: int, item: Item, q: str | None = None):
     '''
     <h3>Basic explanation:</h3>\n
     You can also declare body, path and query parameters, all at the same time.
      FastAPI will recognize each of them and take the data from the correct place.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/body/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/body/#request-body-path-query-parameters" target="_blank">More details..</a>
     <h3>Request body exemple:</h3>\n
     { "name": "Foo", "description": "An optional description", "price": 45.2, "tax": 3.9 }
     <h3>Response exemple:</h3>\n

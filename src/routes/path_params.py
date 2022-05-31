@@ -5,6 +5,7 @@ from enum import Enum
 from fastapi import APIRouter
 
 # pylint: disable=invalid-name
+# pylint: disable=line-too-long
 
 class ModelName(str, Enum):
     '''
@@ -24,7 +25,7 @@ async def read_item(item_id: int):
     '''
     <h3>Basic explanation:</h3>\n
     Basic request item.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/path-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/path-params/#path-parameters-with-types" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "item_id": "item_id" }
     '''
@@ -36,7 +37,7 @@ async def read_user_me():
     <h3>Basic explanation:</h3>\n
     Because path operations are evaluated in order, you need to make sure that the path
     for /users/me is declared before the one for /users/{user_id}\n
-    <a href="https://fastapi.tiangolo.com/tutorial/path-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/path-params/#order-matters" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "user_id": "the current user" }
     '''
@@ -48,7 +49,7 @@ async def read_user(user_id: str):
     '''
     <h3>Basic explanation:</h3>\n
     Basic request item.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/path-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/path-params/#order-matters" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "user_id": "the user_id user" }
     '''
@@ -60,7 +61,7 @@ async def get_model(model_name: ModelName):
     <h3>Basic explanation:</h3>\n
     If you have a path operation that receives a path parameter,
      but you want the possible valid path parameter values to be predefined, you can use a standard Python Enum.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/path-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/path-params/#declare-a-path-parameter" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "model_name": ModelName.value, "message": Conditional get_model function return options }
     '''
@@ -79,7 +80,7 @@ async def read_file(file_path: str):
     <h3>Basic explanation:</h3>\n
     Using an option directly from Starlette you can declare a path parameter containing
      a path using a URL like '/files/{file_path:path}'\n
-    <a href="https://fastapi.tiangolo.com/tutorial/path-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/path-params/#path-convertor" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "file_path": "file_path" }
     '''

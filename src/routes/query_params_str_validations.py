@@ -218,3 +218,64 @@ async def read_items_with_required_query_value_with_information_metadata_params(
     if q:
         results.update({"q": q})
     return results
+
+@router.get("/items-with-alias-query-params/")
+async def read_items_with_alias_query_params(q: str | None = Query(default=None, alias="item-query")):
+    '''
+    <h3>Basic explanation:</h3>\n
+    Imagine that you want the parameter to be item-query. Like in:\n
+    http://127.0.0.1:8000/items/?item-query=foobaritems\n
+    But item-query is not a valid Python variable name. The closest would be item_query. But you still need it to be exactly item-query...\n
+    Then you can declare an alias, and that alias is what will be used to find the parameter value.\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#alias-parameters" target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}],"q": "Test"}
+    '''
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+@router.get("/items-with-deprecating-query-params/")
+async def read_items_with_deprecating_query_params(
+    q: str | None = Query(
+        default=None,
+        alias="item-query",
+        title="Query string",
+        description="Query string for the items to search in the database that have a good match",
+        min_length=3,
+        max_length=50,
+        regex="^fixedquery$",
+        deprecated=True,
+    )):
+    '''
+    <h3>Basic explanation:</h3>\n
+    Imagine that you want the parameter to be item-query. Like in:\n
+    http://127.0.0.1:8000/items/?item-query=foobaritems\n
+    But item-query is not a valid Python variable name. The closest would be item_query. But you still need it to be exactly item-query...\n
+    Then you can declare an alias, and that alias is what will be used to find the parameter value.\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#deprecating-parameters" target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}],"q": "fixedquery"}
+    '''
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+@router.get("/items-with-query-params-excluded-from-open-api/")
+async def read_items_with_query_params_excluded_from_open_api(hidden_query: str | None = Query(default=None, include_in_schema=False)):
+    '''
+    <h3>Basic explanation:</h3>\n
+    To exclude a query parameter from the generated OpenAPI schema (and thus, from the automatic documentation systems),
+     set the parameter include_in_schema of Query to False:\n
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#exclude-from-openapi" target="_blank">More details..</a>
+    <h3>Response exemple:</h3>\n
+    {"hidden_query":"Not found"} or {"hidden_query":"Test"}
+    '''
+    if hidden_query:
+        response = {"hidden_query": hidden_query}
+    else:
+        response = {"hidden_query": "Not found"}
+
+    return response

@@ -4,6 +4,7 @@ Exemples on: https://fastapi.tiangolo.com/tutorial/query-params/
 from fastapi import APIRouter
 
 # pylint: disable=invalid-name
+# pylint: disable=line-too-long
 
 router = APIRouter()
 
@@ -17,7 +18,7 @@ async def read_dic_item(skip: int = 0, limit: int = 10):
     they are automatically interpreted as "query" parameters.\n
     The query is the set of key-value pairs that go after the ? in a URL, separated by & characters.\n
     Eg.: http://127.0.0.1:8000/items/?skip=0&limit=10\n
-    <a https://fastapi.tiangolo.com/tutorial/query-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params/#query-parameters" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "file_path": "file_path" }
     '''
@@ -29,7 +30,7 @@ async def read_item_optional_param(item_id: str, q: str | None = None):
     <h3>Basic explanation:</h3>\n
     The same way, you can declare optional query parameters, by setting their default to None.\n
     In this case, the function parameter q will be optional, and will be None by default.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/query-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params/#optional-parameters" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "item_id": "item_id", "q": "..." } or { "item_id": "item_id" }
     '''
@@ -42,7 +43,7 @@ async def read_item_required_query_param(item_id: str, needy: str):
     '''
     <h3>Basic explanation:</h3>\n
     When you want to make a query parameter required, you can just not declare any default value.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/query-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params/#required-query-parameters" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "item_id":"rest", "needy":"..." }
     '''
@@ -55,7 +56,7 @@ async def read_item_optional_query_and_bool_param(item_id: str, q: str | None = 
     <h3>Basic explanation:</h3>\n
     The same way, you can declare optional query parameters, by setting their default to None.\n
     In this case, the function parameter q will be optional, and will be None by default.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/query-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params/#query-parameter-type-conversion" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "item_id": "item_id", "q": "...", description": "..." } or { "item_id": "item_id" }
     '''
@@ -69,15 +70,13 @@ async def read_item_optional_query_and_bool_param(item_id: str, q: str | None = 
     return item
 
 @router.get("/items-required-and-optional-params/{item_id}")
-async def read_item_required_and_bool_param(
-    item_id: str, needy: str, skip: int = 0, limit: int | None = None
-    ):
+async def read_item_required_and_bool_param(item_id: str, needy: str, skip: int = 0, limit: int | None = None):
     '''
     <h3>Basic explanation:</h3>\n
     When you want to make a query parameter required, you can just not declare any default value.\n
     In this case, the function parameter q will be required, and not have a value by default.\n
     You can define some parameters as required, some as having a default value, and some entirely optional.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/query-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params/#required-query-parameters" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "item_id":"1", "needy":"...", "skip":skip, "limit": 10 }
     or { "item_id":"1", "needy":"...","skip": skip,"limit": null }
@@ -93,7 +92,7 @@ async def read_user_item_multiple_path_and_query_params(
     <h3>Basic explanation:</h3>\n
     You can declare multiple path parameters and query parameters at the same time, FastAPI knows which is which.\n
     And you don't have to declare them in any specific order. They will be detected by name.\n
-    <a href="https://fastapi.tiangolo.com/tutorial/query-params/" target="_blank">More details..</a>
+    <a href="https://fastapi.tiangolo.com/tutorial/query-params/#multiple-path-and-query-parameters" target="_blank">More details..</a>
     <h3>Response exemple:</h3>\n
     { "item_id":"1", "owner_id":1,"q":"...","description":"This is an amazing item that has a long description" }
     or { "item_id":"1","owner_id":1 }
